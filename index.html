@@ -1,81 +1,95 @@
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>CSI5110 Term Project - Natural Deduction Proof Assistant</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="main.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>CSI5110 Term Project - Natural Deduction Proof Assistant</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="main.js"></script>
 </head>
+
 <body>
-	<div class="container">
-		<h3>CSI5110 Term Project - Natural Deduction Proof Assistant</h3>
-		<div class="row">
-			<div class="col-xs-8">
-				<form class="form-horizontal" role="form">
-					<div class="form-group form-group-md">
-						<label class="col-sm-2 control-label" for="formGroupInputLarge">Proposition</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input">
-						</div>
-					</div>
-				</form>
-				<div>
+    <div class="container">
+        <h3>CSI5110 Term Project - Natural Deduction Proof Assistant</h3>
 
-				</div>
-			</div>
-			<div class="col-xs-4">
-				<button type="button" class="btn btn-sm btn-primary">Conclude</button>
-				<button type="button" class="btn btn-sm btn-default">Premise</button>
-				<button type="button" class="btn btn-sm btn-default">Assumption</button>
-				<button type="button" class="btn btn-sm btn-default">Clear</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-8">
-				<table class="table table-hover">
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>p v q</td>
-							<td>Premise</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>p v q</td>
-							<td>Premise</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>p v q</td>
-							<td>Premise</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="col-xs-4">
-				<div class="alert alert-info" role="alert">
-					Hello, welcome to use! To initiate the program, set some premises
-				</div>
-				<h4 class="page-header">Rules</h4>
-				<button type="button" class="btn btn-default btn-block">Default button</button>
-				<button type="button" class="btn btn-default btn-block">Default button</button>
-				<button type="button" class="btn btn-default btn-block">Default button</button>
-				<button type="button" class="btn btn-default btn-block">Default button</button>
-				<button type="button" class="btn btn-default btn-block">Default button</button>
-				<button type="button" class="btn btn-default btn-block">Default button</button>
+        <div class="row">
+            <div class="col-xs-8">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group form-group-md">
+                        <label class="col-sm-2 control-label" for="formGroupInputLarge">Proposition</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="expression" placeholder="Expression">
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <button type="button" id="conclude" class="btn btn-sm btn-primary">Conclude</button>
+                    <button type="button" id="premise" class="btn btn-sm btn-default">Premise</button>
+                    <button type="button" id="assumption" class="btn btn-sm btn-default">Assumption</button>
+                    <button type="button" id="clear" class="btn btn-sm btn-default">Clear</button>
+                    <button type="button" id="undo" class="btn btn-sm btn-default">Undo</button>
+                </div>
+                <table class="table table-hover" id="table">
 
-			</div>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>p v q</td>
+                            <td>Premise</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>p v q</td>
+                            <td>Premise</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>p v q</td>
+                            <td>Premise</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="instruction">
 
-		</div>
-		<div class="row" id="instruction">
-			<div class="col-xs-12">
-				<p>
-					A program that implements a theorem prover or model checker of some kind. Examples include:A program for building natural deduction proofs for propositional logic. At each step the program asks what inference rule the user wants to apply. The program keeps some representation of the proof as it proceeds, and prints it out in a readable format at the end. You might also try to determine which rules are applicable and output a list of possible rules to apply that the user can choose from. If there is only one rule to apply, you could apply it without asking the user, but instead, just informing him/her. A program for building proof tableaux for program verification. Similar to above, but with the proof calculus from Chapter 4. In this case, you can apply most of the rules automatically. The user will only have to help with the application of the "while" rule. An automated theorem prover for propositional or first-order logic using a strategy of your choice. There are many published strategies. A model checker implementing the algorithm in Chapter 3 (which will not be covered in class). 
-				</p>
-			</div>
-		</div>
-	</div>
-	
+                    <p>
+                        A program that implements a theorem prover or model checker of some kind. Examples include:A program for building natural deduction proofs for propositional logic. At each step the program asks what inference rule the user wants to apply. The program keeps some representation of the proof as it proceeds, and prints it out in a readable format at the end. You might also try to determine which rules are applicable and output a list of possible rules to apply that the user can choose from. If there is only one rule to apply, you could apply it without asking the user, but instead, just informing him/her.
+                    </p>
+                    <p>
+                        A program for building proof tableaux for program verification. Similar to above, but with the proof calculus from Chapter 4. In this case, you can apply most of the rules automatically. The user will only have to help with the application of the "while" rule. An automated theorem prover for propositional or first-order logic using a strategy of your choice. There are many published strategies. A model checker implementing the algorithm in Chapter 3 (which will not be covered in class).
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-xs-4">
+                <div class="alert alert-info" role="alert">
+                    Hello, welcome to use! To initiate the program, set some premises
+                </div>
+                <h4 class="page-header">Narural Deduction Rules</h4>
+                <button type="button" class="btn btn-default btn-block">And Intro (&i)</button>
+                <button type="button" class="btn btn-default btn-block">And Elim 1 (&e1)</button>
+                <button type="button" class="btn btn-default btn-block">And Elim 2 (&e2)</button>
+                <button type="button" class="btn btn-default btn-block">Or Intro 1 (vi1)</button>
+                <button type="button" class="btn btn-default btn-block">Or Intro 2 (vi2)</button>
+                <button type="button" class="btn btn-default btn-block">Or Elim (ve)</button>
+                <button type="button" class="btn btn-default btn-block">Implies Intro (=>i)</button>
+                <button type="button" class="btn btn-default btn-block">Implies Elim (=>e)</button>
+                <button type="button" class="btn btn-default btn-block">Not Intro (~i)</button>
+                <button type="button" class="btn btn-default btn-block">Double Not Intro (~~i)</button>
+                <button type="button" class="btn btn-default btn-block">Double Not Elim (~~e)</button>
+                <button type="button" class="btn btn-default btn-block">Modus Tollens (MT)</button>
+                <h4 class="page-header">Feedbacks</h4>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="feedback">If you have any advice or comment, please write in the area below. Thank you!</label>
+                        <textarea class="form-control" id="feedback" rows="3"></textarea>
+                        <button type="submit" id="submit_feedback" class="btn btn-default">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>

@@ -1,6 +1,12 @@
 .container{
 	width: 970px !important;
 }
-#instru{
+#instruction{
 	margin-top: 30px;
+}
+#submit_feedback{
+	margin-top: 10px;
+}
+#table{
+	margin-top: 20px;
 }
