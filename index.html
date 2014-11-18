@@ -1,24 +1,38 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>CSI5110 Term Project</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css"></head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>CSI5110 Term Project - Natural Deduction Proof Assistant</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="main.js"></script>
+</head>
 <body>
 	<div class="container">
-		<h3>CSI5110 Term Project</h3>
+		<h3>CSI5110 Term Project - Natural Deduction Proof Assistant</h3>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-xs-8">
 				<form class="form-horizontal" role="form">
-					<div class="form-group form-group-lg">
+					<div class="form-group form-group-md">
 						<label class="col-sm-2 control-label" for="formGroupInputLarge">Proposition</label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input"></div>
+							<input class="form-control" type="text" id="formGroupInputLarge" placeholder="Large input">
+						</div>
 					</div>
-					<button type="button" class="btn btn-primary">Conclude</button>
-					<button type="button" class="btn btn-default">Premise</button>
-					<button type="button" class="btn btn-default">Assumption</button>
-					<button type="button" class="btn btn-default">Clear</button>
 				</form>
+				<div>
+
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<button type="button" class="btn btn-sm btn-primary">Conclude</button>
+				<button type="button" class="btn btn-sm btn-default">Premise</button>
+				<button type="button" class="btn btn-sm btn-default">Assumption</button>
+				<button type="button" class="btn btn-sm btn-default">Clear</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-8">
 				<table class="table table-hover">
 					<tbody>
 						<tr>
@@ -38,15 +52,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<div>
-				<button type="button" class="btn btn-sm btn-primary">Conclude</button>
-				<button type="button" class="btn btn-sm btn-default">Premise</button>
-				<button type="button" class="btn btn-sm btn-default">Assumption</button>
-				<button type="button" class="btn btn-sm btn-default">Clear</button>
-				</div>
 			</div>
-			<div class="col-md-4">
-				<h4 class="page-header">Info</h4>
+			<div class="col-xs-4">
 				<div class="alert alert-info" role="alert">
 					Hello, welcome to use! To initiate the program, set some premises
 				</div>
@@ -61,7 +68,14 @@
 			</div>
 
 		</div>
+		<div class="row" id="instru">
+			<div class="col-xs-12">
+				<p>
+					A program that implements a theorem prover or model checker of some kind. Examples include:A program for building natural deduction proofs for propositional logic. At each step the program asks what inference rule the user wants to apply. The program keeps some representation of the proof as it proceeds, and prints it out in a readable format at the end. You might also try to determine which rules are applicable and output a list of possible rules to apply that the user can choose from. If there is only one rule to apply, you could apply it without asking the user, but instead, just informing him/her. A program for building proof tableaux for program verification. Similar to above, but with the proof calculus from Chapter 4. In this case, you can apply most of the rules automatically. The user will only have to help with the application of the "while" rule. An automated theorem prover for propositional or first-order logic using a strategy of your choice. There are many published strategies. A model checker implementing the algorithm in Chapter 3 (which will not be covered in class). 
+				</p>
+			</div>
+		</div>
 	</div>
-	<script type="text/javascript" src="main.js"></script>
+	
 </body>
 </html>
