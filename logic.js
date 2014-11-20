@@ -1,4 +1,4 @@
-
+/*
 var builtin_rules = {
     //基本的自然推理逻辑
     "&I": new Rule("And Intro", ["A", "B"], "A & B"),
@@ -58,3 +58,38 @@ Rule.prototype.substitute = function (var_map) {
         }
         return parse(a_conclusion.join("").split(""), 0);
     };
+*/
+function Expression(id, scope, content, type) {
+    this.id = id;
+    this.content = content;
+    this.type = type;
+
+    this.scope = scope;
+    // if (this.type != "Assumption") {
+    //     this.scope.pop();
+    // }
+};
+
+function deduct(logicRule, expressionArray) {
+    if (logicRule == "&i") {
+
+    } else if (logicRule == "&e1") {
+
+    } else if (logicRule == "&e2") {
+
+    } else if (logicRule == "vi1") {
+
+    } else if (logicRule == "vi2") {
+
+    } else if (logicRule == "ve") {
+
+    } else if (logicRule == "=>i") {
+
+    } else if (logicRule == "=>e") {
+
+    } else if (logicRule == "~~i") {
+
+    } else if (logicRule == "~~e") {
+
+    }
+}
