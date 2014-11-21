@@ -74,11 +74,24 @@ function deduct(logicRule, expressionArray) {
     if (logicRule == "&i") {
 
     } else if (logicRule == "&e1") {
+        if (expressionArray.length == 1) {
 
+        } else {
+            info("wrong parameters");
+            return null;
+        }
     } else if (logicRule == "&e2") {
+        if (expressionArray.length == 1) {
 
+        } else {
+            info("wrong parameters");
+        }
     } else if (logicRule == "vi1") {
+        if (expressionArray.length == 2) {
 
+        } else {
+            info("wrong parameters");
+        }
     } else if (logicRule == "vi2") {
 
     } else if (logicRule == "ve") {
@@ -86,7 +99,11 @@ function deduct(logicRule, expressionArray) {
     } else if (logicRule == "=>i") {
 
     } else if (logicRule == "=>e") {
+        if (expressionArray.length == 2) {
 
+        } else {
+            info("=>e rule needs two para");
+        }
     } else if (logicRule == "~~i") {
 
     } else if (logicRule == "~~e") {
