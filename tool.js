@@ -1,77 +1,96 @@
+function arrayInit(value, length) {
+    var a = new Array(length);
+    for (var i = 0; i < length; i++) {
+        a[i] = value;
+    }
+    return a;
+}
+
 function trim(string) {
-	//匹配了制表符,空行等,并替换成空
-	return string.replace(/[\s\n\t]+/g, "");
-};
+    //匹配了制表符,空行等,并替换成空
+    return string.replace(/[\s\n\t]+/g, "");
+}
 
+var tab = "  ";
+function repeat(string, times) {
+    if (times === 0) {
+        return "";
+    } else if (times % 2 === 0) {
+        return repeat(string + string, times / 2);
+    } else {
+        return string + repeat(string, times - 1);
+    }
+}
+
+//美化输入内容
 function beautify(string) {
-		//美化输入内容
-		var t_string = string.replace(/([v&]|=>)(.)/g, "\$1 \$2");
-		t_string = t_string.replace(/(.)([v&]|=>)/g, "\$1 \$2");
-		return t_string;
-	}
-	//定义几种优先级
-var precedence = {
-	"none": 4,
-	">": 2,
-	"=": 2,
-	"&": 2,
-	"v": 2,
-	"~": 3
-};
+    var t_string = string.replace(/([v&]|=>)(.)/g, "\$1 \$2");
+    t_string = t_string.replace(/(.)([v&]|=>)/g, "\$1 \$2");
+    return t_string;
+}
 
+function map(func, array) {
+    for (var i = 0; i < array.length; i++) {
+        array[i] = func(array[i]);
+    }
+    return array;
+}
+
+
+function getPrefixedScopeId(scope) {
+    return SCOPE_PREFIX + (cur_scope.join(".") || "0");
+}
+
+function getPrefixedExpressionId(scope, line) {
+    var scope_id = scope.join(".");
+    return EXPR_PREFIX + (scope_id ? scope_id + "." : "") + line;
+}
+
+function getModifier(type, rule_name) {
+    return (type && type != "Rule" && type != "Discharge") ?
+            type : rule_name ? rule_name : "";
+}
+
+
+function exportPrintable(actions) {
+    var exportedContent = [];
+    for (var i = 0; i < actions.length; i++) {
+        var action = actions[i];
+        if (action["name"] == "add_expression") {
+            var expression = expressions_list[action["target"]];
+            var line = expression.identifier.slice(-1);
+            var expr_str;
+            expr_str = expression.type == "Assumption" ?
+                        repeat(tab, expression.scope.length - 1) :
+                        repeat(tab, expression.scope.length);
+            expr_str += expression.identifier.slice(-1) + ". " +
+                        expression.content + tab +
+                        getModifier(expression.type, expression.rule_name);
+            exportedContent.push(expr_str);
+        }
+    }
+    return exportedContent.join("\n");
+}
+
+//定义几种优先级
+var precedence = {
+    "none": 4,
+    ">": 2,
+    "=": 2,
+    "&": 2,
+    "v": 2,
+    "~": 3
+};
 //比较优先级,如果参数1比参数2小,返回-1.......
 function comparePrecedence(operator1, operator2) {
-	var pre1 = precedence[operator1],
-		pre2 = precedence[operator2];
-	if (pre1 < pre2) {
-		return -1;
-	} else if (pre1 == pre2) {
-		return 0;
-	} else {
-		return 1;
-	}
+    var pre1 = precedence[operator1], pre2 = precedence[operator2];
+    if (pre1 < pre2) {
+        return -1;
+    } else if (pre1 == pre2) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
-//解析
-function parse(s, depth) {
-	var out = '';
-	var lowest = "none";
-
-	while (depth < s.length) {
-		var c = s[depth];
-
-		//判断如果如果内容中含有左括号
-		if (c == '(') {
-			var p = parse(s, depth + 1);
-			var leftmost = depth && /[&v~]|(=)|(>)|(-)/.exec(s[depth - 1]);
-			var rightmost = p[1] && (depth + p[1].length + 2) < (s.length - 1) &&
-				/[&v~]|(=)|(>)|(-)/.exec(s[depth + p[1].length + 2]);
-
-			if (p[1].length > 1 && p[0] != "~" &&
-				((leftmost && comparePrecedence(p[0], leftmost[0]) <= 0) ||
-					(rightmost && comparePrecedence(p[0], rightmost[0]) <= 0))) {
-
-				depth += p[1].length + 2;
-				p[1] = '(' + p[1] + ')';
-
-			} else {
-				depth += p[1].length + 2;
-			}
-
-			out += p[1];
-		} else if (c == ')') { //判断如果内容中含有右括号
-			if (out.length > 0) {
-				return [lowest, out];
-			} else {
-				depth++;
-			}
-		} else {
-			if (precedence[c] && comparePrecedence(c, lowest) < 0) {
-				lowest = c;
-			}
-			out += c;
-			depth++;
-		}
-	}
-	return out;
-}
+//^(\&i|\&e1|\&e2|vi1|vi2|ve|=>i|=>e|~~i|~~e)\s(\d+,)*\d+$

@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>CSI5110 Term Project - Natural Deduction Proof Assistant</title>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="app_style.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="tool.js"></script>
     <script type="text/javascript" src="logic.js"></script>
+
+    <script type="text/javascript" src="main.js"></script>
+
+
 </head>
 
 <body>
@@ -31,26 +35,13 @@
                     <button type="button" id="assumption" class="btn btn-sm btn-default">Assumption</button>
                     <button type="button" id="undo" class="btn btn-sm btn-default">Undo</button>
                 </div>
-                <table class="table table-hover" id="table">
 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>p v q</td>
-                            <td>Premise</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>p v q</td>
-                            <td>Premise</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>p v q</td>
-                            <td>Premise</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="body">
+                    <ol id="scope_0">
+                        
+                    </ol>
+                </div>
+
                 <div id="instruction">
 
                     <p>
@@ -63,20 +54,20 @@
 
             </div>
             <div class="col-xs-4">
-                <div id="info_box" class="alert alert-info" role="alert">
+                <div id="message" class="alert alert-info" role="alert">
                     Hello, welcome to use! To initiate the program, set some premises
                 </div>
                 <h4 class="page-header">Narural Deduction Rules</h4>
-                <button type="button" id="&i" class="btn btn-default btn-block">And Intro (&i)</button>
-                <button type="button" id="&e1" class="btn btn-default btn-block">And Elim 1 (&e1)</button>
-                <button type="button" id="&e2" class="btn btn-default btn-block">And Elim 2 (&e2)</button>
-                <button type="button" id="vi1" class="btn btn-default btn-block">Or Intro 1 (vi1)</button>
-                <button type="button" id="vi2" class="btn btn-default btn-block">Or Intro 2 (vi2)</button>
-                <button type="button" id="ve" class="btn btn-default btn-block">Or Elim (ve)</button>
-                <button type="button" id="=>i" class="btn btn-default btn-block">Implication Intro (=>i)</button>
-                <button type="button" id="=>e" class="btn btn-default btn-block">Implication Elim (=>e)</button>
-                <button type="button" id="~~i" class="btn btn-default btn-block">Not Intro (~~i)</button>
-                <button type="button" id="~~e" class="btn btn-default btn-block">Double Not Elim (~~e)</button>
+                <button type="button" id="&I" class="btn btn-default btn-block">And Intro (&I)</button>
+                <button type="button" id="&E1" class="btn btn-default btn-block">And Elim 1 (&E1)</button>
+                <button type="button" id="&E2" class="btn btn-default btn-block">And Elim 2 (&E2)</button>
+                <button type="button" id="vI1" class="btn btn-default btn-block">Or Intro 1 (vI1)</button>
+                <button type="button" id="vI2" class="btn btn-default btn-block">Or Intro 2 (vI2)</button>
+                <button type="button" id="vE" class="btn btn-default btn-block">Or Elim (vE)</button>
+                <button type="button" id="=>I" class="btn btn-default btn-block">Implication Intro (=>I)</button>
+                <button type="button" id="=>E" class="btn btn-default btn-block">Implication Elim (=>E)</button>
+                <button type="button" id="~~I" class="btn btn-default btn-block">Not Intro (~~I)</button>
+                <button type="button" id="~~E" class="btn btn-default btn-block">Double Not Elim (~~E)</button>
                 <!-- <button type="button" id="" class="btn btn-default btn-block">Modus Tollens (MT)</button> -->
                 <h4 class="page-header">Feedbacks</h4>
                 <form role="form">
