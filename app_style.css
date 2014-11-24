@@ -46,15 +46,8 @@ ol {
     margin-bottom: 3px;
 }
 
-.expression_content_selected {
-    background-color: #FAB6B8;
-    -webkit-box-shadow: 2px 2px 2px #888888;
-    box-shadow: 2px 2px 2px #888888;
-}
 
-.expression_content:hover {
-    background-color: #F2F1BF
-}
+
 
 .expression_string {
     float: left;
@@ -63,7 +56,7 @@ ol {
 .expression_modifier {
     float: right;
     text-align: center;
-    color: white;
+    color: black;
     font-style: italic;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -73,21 +66,9 @@ ol {
     border-radius: 5px;
 }
 
-.Premise {
-    background-color: green;
-}
 
-.Assumption {
-    background-color: orange;
-}
 
-.Rule {
-    background-color: blue; 
-}
 
-.Discharge {
-    background: red;
-}
 
 ul#rules_box {
     padding: 0px;

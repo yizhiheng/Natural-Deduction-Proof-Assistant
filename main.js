@@ -72,11 +72,11 @@ function addNewExpression(content, type, rule_name) {
 //item: DOM li element
 function toggleSelection(item) {
     if (item.className == "expression_content") {
-        item.className = "expression_content_selected";
-        selections_list[item.id] = expressions_list[item.id];
+    item.className = "expression_content_selected";
+    selections_list[item.id] = expressions_list[item.id];
     } else {
-        item.className = "expression_content";
-        delete selections_list[item.id];
+    item.className = "expression_content";
+    delete selections_list[item.id];
     }
 }
 
@@ -167,17 +167,6 @@ function addRule(id, rule) {
 //页面初始化函数
 function init() {
     cur_area = document.getElementById("scope_0");  //cur_area显示当前状态
-/*    var rule_box = document.getElementById("rules_box");    //所有的规则
-    
-    //循环给rule_box加入rule按钮
-    for (var rule in builtin_rules) {
-        var rule_button = document.createElement("input");
-        
-        rule_button.type = "button";
-        rule_button.value = builtin_rules[rule].name;
-        rule_button.id = rule;
-        rule_box.appendChild(rule_button);
-    }*/
 }
 
 
@@ -216,6 +205,10 @@ function setupListeners() {
     //单击了conclude按钮
     conclude_button.addEventListener("click", function() {
 
+        if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~~I|~~E)\s(\d+,)*\d+$/.test(expression.value)) {
+            message_box.innerHTML = "Wrong input. The input should match the pattern. ";
+            return;
+        };
         var inputArray = expression.value.split(" ");
         var rule = builtin_rules[inputArray[0]];  //判断运用的是什么规则
 
@@ -250,7 +243,6 @@ function setupListeners() {
         }
 
         //原始的conclude内容
-        //var expr = expression.value.split("#");
         var expr = [current_conclusion,expression.value];
         if (expr[1].search(builtin_rules["=>I"].name) !== -1) {
             addNewExpression(expr[0], "Discharge", expr[1]);
@@ -272,41 +264,44 @@ function setupListeners() {
         }
     });
     
-    undo_button.addEventListener("click", undo);
-    
+    undo_button.addEventListener("click", undo); 
 
-    
-/*    //当规则被单击
-    rules_box.addEventListener("click", function (e) {
-        if (e.target.type == "button") {
-            var rule = builtin_rules[e.target.id];  //判断运用的是什么规则
-            var result = ruleSelected(rule);
-            
-            if (result == INVALID_SCOPE) {
-                message_box.innerHTML = ERROR_MESSAGE_SCOPE;
-            } else if (result == INVALID_MATCH_QUALITY) {
-                message_box.innerHTML = ERROR_MESSAGE_MATCH_QUALITY;
-            } else if (result == INVALID_MATCH_QUANTITY) {
-                message_box.innerHTML = ERROR_MESSAGE_MATCH_QUANTITY +
-                                        ". Require " + rule.premises.length + " premises";
-            } else if (result) {
-                current_conclusion = beautify(result[0])
-                expression.value = result[1];   //!!!!!!!!!!!!!!!!!!!!!!!!!
-                conclude_button.disabled = false;
-                premise_button.disabled = true;
-                assumption_button.disabled = true;
-                message_box.innerHTML = "";
-            }
-        }
-    })*/
-
-    
-    
+    document.getElementById("&I").addEventListener("click",function(){
+        expression.value = "&I ";
+    });
+    document.getElementById("&E1").addEventListener("click",function(){
+        expression.value = "&E1 ";
+    });
+    document.getElementById("&E2").addEventListener("click",function(){
+        expression.value = "&E2 ";
+    });
+    document.getElementById("vI1").addEventListener("click",function(){
+        expression.value = "vI1 ";
+    });
+    document.getElementById("vI2").addEventListener("click",function(){
+        expression.value = "vI2 ";
+    });
+    document.getElementById("vE").addEventListener("click",function(){
+        expression.value = "vE ";
+    });
+    document.getElementById("=>I").addEventListener("click",function(){
+        expression.value = "=>I ";
+    });
+    document.getElementById("=>E").addEventListener("click",function(){
+        expression.value = "=>E ";
+    });
+    document.getElementById("~~I").addEventListener("click",function(){
+        expression.value = "~~I ";
+    });
+    document.getElementById("~~E").addEventListener("click",function(){
+        expression.value = "~~E ";
+    });
 }
 
 function main() {
     init();
     setupListeners();
 }
+
 
 window.addEventListener("load", main);
