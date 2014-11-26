@@ -220,7 +220,7 @@ Expression.prototype.canBeSeen = function (scope) {
 //Construct rules: Use only single alphabetical character to represent variables to be substituted
 //"<unique identifier": new Rule("<rule name>", [<premise1>,...], "<conclusion>")
 var builtin_rules = { //Fundamental Logical Rules
-/*    "&I": new Rule("Conjunction Intro", ["A", "B"], "A & B"),
+/*   "&I": new Rule("Conjunction Intro", ["A", "B"], "A & B"),
     "&E1": new Rule("Conjunction Elim 1", ["A & B"], "A"),
     "&E2": new Rule("Conjunction Elim 2", ["A & B"], "B"),
     "vI1": new Rule("Disjunction Intro 1", ["A"], "A v B"),
@@ -243,7 +243,7 @@ var builtin_rules = { //Fundamental Logical Rules
     "vE": new Rule("vE", ["A v B", "A => C", "B => C"], "C"),
     "=>I": new Rule("=>I", ["A |- B"], "A => B"),
     "=>E": new Rule("=>E", ["A", "A => B"], "B"),
-    "~I": new Rule("~I", ["A => (B & ~B)"], "~A"),
+    "~I": new Rule("~I", ["~A => (B & ~B)"], "~~A"),
     "~~I": new Rule("~~I", ["A"], "~~A"),
     "~~E": new Rule("~~E", ["~~A"], "A"),
 };

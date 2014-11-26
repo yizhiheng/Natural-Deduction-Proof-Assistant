@@ -24,8 +24,8 @@ function addNewExpression(content, type, rule_name) {
         cur_area = document.getElementById(getPrefixedScopeId(cur_scope));
     }
     var scope_id = cur_scope.join(".");
-    var newExpr = new Expression((scope_id ? scope_id + "." : "") + cur_scope_lid,
-                                 content, type, rule_name);
+    var newExpr = new Expression((scope_id ? scope_id + "." : "") + cur_scope_lid, content, type, rule_name);
+    //var newExpr = new Expression("" + cur_scope_lid, content, type, rule_name);
 
     expressions_list[EXPR_PREFIX + newExpr.identifier] = newExpr;
 
@@ -205,10 +205,10 @@ function setupListeners() {
     //单击了conclude按钮
     conclude_button.addEventListener("click", function() {
 
-        if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~~I|~~E)\s(\d+,)*\d+$/.test(expression.value)) {
+        /*if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~~I|~~E)\s(\d+,)*\d+$/.test(expression.value)) {
             message_box.innerHTML = "Wrong input. The input should match the pattern. ";
             return;
-        };
+        };*/
         var inputArray = expression.value.split(" ");
         var rule = builtin_rules[inputArray[0]];  //判断运用的是什么规则
 
@@ -289,6 +289,9 @@ function setupListeners() {
     });
     document.getElementById("=>E").addEventListener("click",function(){
         expression.value = "=>E ";
+    });
+    document.getElementById("~I").addEventListener("click",function(){
+        expression.value = "~I ";
     });
     document.getElementById("~~I").addEventListener("click",function(){
         expression.value = "~~I ";

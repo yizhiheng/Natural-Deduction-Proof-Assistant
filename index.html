@@ -12,7 +12,6 @@
 
     <script type="text/javascript" src="main.js"></script>
 
-
 </head>
 
 <body>
@@ -25,8 +24,7 @@
                     <div class="form-group form-group-md">
                         <label class="col-sm-2 control-label" for="expression">Expression</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="expression" placeholder="Expression">
-                        </div>
+                            <input class="form-control" type="text" id="expression" placeholder="Expression"></div>
                     </div>
                 </form>
                 <div>
@@ -37,25 +35,50 @@
                 </div>
 
                 <div class="body">
-                    <ol id="scope_0">
-                        
-                    </ol>
+                    <ol id="scope_0"></ol>
                 </div>
 
                 <div id="instruction">
-                    <p>
-                       CSI5110 Term Project
-                       <br>Made by Zhiheng Yi (7475788) 
-                       <br>Email:zyi093@uottawa.ca
 
-                    </p>
-                    <p>
-                        This proof assistant implements 10 basic natural deduction rules, which are shown on the right panel. To initialize the program, set some premises.
-                    </p>
-                    <p>
-                        Here are few running examples:
-                        
-                    </p>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>
+                                CSI5110 Term Project
+                                <br>
+                                Made by Zhiheng Yi (7475788)
+                                <br>Email:zyi093@uottawa.ca</p>
+                            <p>
+                                Logical Connectives in this program:
+                                <ul>
+                                    <li>Conjunction: &</li>
+                                    <li>Disjunction: v</li>
+                                    <li>Not: ~</li>
+                                    <li>Implication: =></li>
+                                </ul>
+                            </p>
+                            <p>
+                                This proof assistant implements 11 basic natural deduction rules from the text book, which are shown on the right panel.
+                            </p>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Rules patterns:</p>
+                            <ul>
+                                <li>And Intro (&I) : p, q |- q & q</li>
+                                <li>And Elim 1 (&E1) : p & q |- p</li>
+                                <li>And Elim 2 (&E2) : p & q |- q</li>
+                                <li>Or Intro 1 (vI1) : p |- p v q</li>
+                                <li>Or Intro 2 (vI2) : p |- q v p</li>
+                                <li>Or Elim (vE) : p v q, p => a, q => a |- a</li>
+                                <li>Implication Intro (=>I) : (p |- q) |- p => q</li>
+                                <li>Implication Elim (=>E) : p, p => q |- q</li>
+                                <li>Not Intro (~I) : p => (q & ~q) |- ~p</li>
+                                <li>Double Not Intro (~~I) : p |- ~~p</li>
+                                <li>Double Not Elim (~~E) : ~~p |- p</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -64,27 +87,85 @@
                     Hello, welcome to use! To initiate the program, set some premises
                 </div>
                 <h4 class="page-header">Narural Deduction Rules</h4>
-                <button type="button" id="&I" class="btn btn-default btn-block">And Intro (&I)</button>
-                <button type="button" id="&E1" class="btn btn-default btn-block">And Elim 1 (&E1)</button>
-                <button type="button" id="&E2" class="btn btn-default btn-block">And Elim 2 (&E2)</button>
-                <button type="button" id="vI1" class="btn btn-default btn-block">Or Intro 1 (vI1)</button>
-                <button type="button" id="vI2" class="btn btn-default btn-block">Or Intro 2 (vI2)</button>
-                <button type="button" id="vE" class="btn btn-default btn-block">Or Elim (vE)</button>
-                <button type="button" id="=>I" class="btn btn-default btn-block">Implication Intro (=>I)</button>
-                <button type="button" id="=>E" class="btn btn-default btn-block">Implication Elim (=>E)</button>
-                <button type="button" id="~~I" class="btn btn-default btn-block">Not Intro (~~I)</button>
-                <button type="button" id="~~E" class="btn btn-default btn-block">Double Not Elim (~~E)</button>
-                <!-- <button type="button" id="" class="btn btn-default btn-block">Modus Tollens (MT)</button> -->
+                <button type="button" id="&I" class="btn btn-default btn-block btn-sm">And Intro (&I)</button>
+                <button type="button" id="&E1" class="btn btn-default btn-block btn-sm">And Elim 1 (&E1)</button>
+                <button type="button" id="&E2" class="btn btn-default btn-block btn-sm">And Elim 2 (&E2)</button>
+                <button type="button" id="vI1" class="btn btn-default btn-block btn-sm">Or Intro 1 (vI1)</button>
+                <button type="button" id="vI2" class="btn btn-default btn-block btn-sm">Or Intro 2 (vI2)</button>
+                <button type="button" id="vE" class="btn btn-default btn-block btn-sm">Or Elim (vE)</button>
+                <button type="button" id="=>I" class="btn btn-default btn-block btn-sm">Implication Intro (=>I)</button>
+                <button type="button" id="=>E" class="btn btn-default btn-block btn-sm">Implication Elim (=>E)</button>
+                <button type="button" id="~I" class="btn btn-default btn-block btn-sm">Not Intro (~I)</button>
+                <button type="button" id="~~I" class="btn btn-default btn-block btn-sm">Double Not Intro (~~I)</button>
+                <button type="button" id="~~E" class="btn btn-default btn-block btn-sm">Double Not Elim (~~E)</button>
                 <h4 class="page-header">Feedbacks</h4>
                 <form role="form">
                     <div class="form-group">
-                        <label for="feedback">If you have any advice or comment, please write in the area below. Thank you!</label>
+                        <label for="feedback">
+                            If you have any advice or comment, please write in the area below. Thank you!
+                        </label>
                         <textarea class="form-control" id="feedback" rows="3"></textarea>
                         <button type="submit" id="submit_feedback" class="btn btn-default">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
+        <h4 class="page-header">Examples</h4>
+        <div class="row">
+            <div class="col-xs-4">
+                <img src="img/1.png"></div>
+            <div class="col-xs-4">
+                <ol>
+                    <li>input: (p & ~q) => r ; click premise</li>
+                    <li>input: ~r ; click premise</li>
+                    <li>input: p ; click premise</li>
+                    <li>input: ~q ; click assumption</li>
+                    <li>
+                        input: &I 3,4 ; click conclude (There is a blank space between &I and 3,4)
+                    </li>
+                    <li>input: "=>E  4.1,1" ; click conclude</li>
+                    <li>input: &I  4.2,2 ; click conclude</li>
+                    <li>input: =>I  4,4.3 ; click conclude</li>
+                    <li>input: ~I 5 ; click conclude</li>
+                    <li>input: ~~E 6 ; click conclude</li>
+                </ol>
+            </div>
+            <div class="col-xs-4">
+                <a href="img/1.1.png">
+                    <img src="img/1.1.png">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <img src="img/1.png"></div>
+            <div class="col-xs-4">
+                <ol>
+                    <li>input: (p & ~q) => r ; click premise</li>
+                    <li>input: ~r ; click premise</li>
+                    <li>input: p ; click premise</li>
+                    <li>input: ~q ; click assumption</li>
+                    <li>
+                        input: &I 3,4 ; click conclude (There is a blank space between &I and 3,4)
+                    </li>
+                    <li>input: "=>E  4.1,1" ; click conclude</li>
+                    <li>input: &I  4.2,2 ; click conclude</li>
+                    <li>input: =>I  4,4.3 ; click conclude</li>
+                    <li>input: ~I 5 ; click conclude</li>
+                    <li>input: ~~E 6 ; click conclude</li>
+                </ol>
+            </div>
+            <div class="col-xs-4">
+                <a href="img/1.1.png">
+                    <img src="img/1.1.png">
+                </a>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p></p>
+
+        </footer>
     </div>
 
 </body>
