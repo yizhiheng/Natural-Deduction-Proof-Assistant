@@ -236,8 +236,8 @@ var builtin_rules = { //Fundamental Logical Rules
     "DS": new Rule("Disjunctive Syllogism", ["A v B", "~A"], "B"),
     "Iter": new Rule("Iteration", ["A"], "A")*/
     "&I": new Rule("&I", ["A", "B"], "A & B"),
-    "&I1": new Rule("&I1", ["A & B"], "A"),
-    "&I2": new Rule("&I2", ["A & B"], "B"),
+    "&E1": new Rule("&E1", ["A & B"], "A"),
+    "&E2": new Rule("&E2", ["A & B"], "B"),
     "vI1": new Rule("vI1", ["A"], "A v B"),
     "vI2": new Rule("vI2", ["A"], "B v A"),
     "vE": new Rule("vE", ["A v B", "A => C", "B => C"], "C"),

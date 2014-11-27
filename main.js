@@ -205,82 +205,85 @@ function setupListeners() {
 
     //单击了conclude按钮
     conclude_button.addEventListener("click", function() {
+        try {
+            if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~I|~~I|~~E)\s(\d+\.*)+,?.*$/.test(expression.value)) {
+                message_box.innerHTML = "Wrong input. The input should match the right pattern. ";
+                return;
+            };
+            var inputArray = expression.value.split(" ");
+            var rule = builtin_rules[inputArray[0]]; //判断运用的是什么规则
+            var vIElement2;
 
-        if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~I|~~I|~~E)\s(\d+\.*)+,?.*$/.test(expression.value)) {
-            message_box.innerHTML = "Wrong input. The input should match the right pattern. ";
+            if (rule.name == "vI1" || rule.name == "vI2") {
+                //if rule is vI1 or vI2
+                vIElement2 = inputArray[1].split(",")[1]; //get the second element, like B in vI1 1,b
+
+                var selectedArray = inputArray[1].split(",");
+                var i = 0; //only get the first element
+                var selectItem = document.getElementById("expr_" + selectedArray[i]);
+                if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
+                    selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
+                    var selection = document.getElementById(selectItem.id);
+                    toggleSelection(selection);
+                } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
+                    var selection = document.getElementById(e.target.parentNode.id);
+                    toggleSelection(selection);
+                }
+
+
+            } else {
+                //other rules
+                var selectedArray = inputArray[1].split(",");
+                for (var i = 0; i < selectedArray.length; i++) {
+                    var selectItem = document.getElementById("expr_" + selectedArray[i]);
+                    if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
+                        selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
+                        var selection = document.getElementById(selectItem.id);
+                        toggleSelection(selection);
+                    } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
+                        var selection = document.getElementById(e.target.parentNode.id);
+                        toggleSelection(selection);
+                    }
+                }
+            }
+            // main_scope.addEventListener("click", function(e)
+
+
+            var result = ruleSelected(rule);
+
+            if (result == INVALID_SCOPE) {
+                message_box.innerHTML = ERROR_MESSAGE_SCOPE;
+            } else if (result == INVALID_MATCH_QUALITY) {
+                message_box.innerHTML = ERROR_MESSAGE_MATCH_QUALITY;
+            } else if (result == INVALID_MATCH_QUANTITY) {
+                message_box.innerHTML = ERROR_MESSAGE_MATCH_QUANTITY +
+                    ". Require " + rule.premises.length + " premises";
+            } else if (result) {
+                if (/<VAR>/.test(result[0])) {
+                    result[0] = result[0].replace(/<VAR>/g, vIElement2);
+                    current_conclusion = beautify(result[0]);
+                } else {
+                    current_conclusion = beautify(result[0]);
+                }
+
+                expression.value = result[1]; //!!!!!!!!!!!!!!!!!!!!!!!!!
+                //message_box.innerHTML = "";
+            }
+
+            //原始的conclude内容
+            var expr = [current_conclusion, expression.value];
+            if (expr[1].search(builtin_rules["=>I"].name) !== -1) {
+                addNewExpression(expr[0], "Discharge", expr[1]);
+            } else {
+                addNewExpression(expr[0], "Rule", expr[1]);
+            }
+            resetSelection();
+            expression.value = "";
+            message_box.innerHTML = "SO FAR, SO GOOD!";
+        } catch (err) {
+            message_box.innerHTML = "Something goes wrong, please check the input.";
             return;
-        };
-        var inputArray = expression.value.split(" ");
-        var rule = builtin_rules[inputArray[0]];  //判断运用的是什么规则
-        var vIElement2;
-        
-        if (rule.name == "vI1" || rule.name == "vI2") {   
-            //if rule is vI1 or vI2
-            vIElement2 = inputArray[1].split(",")[1];   //get the second element, like B in vI1 1,b
-
-            var selectedArray = inputArray[1].split(",");
-                var i = 0;  //only get the first element
-                var selectItem = document.getElementById("expr_" + selectedArray[i]);
-                if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
-                    selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
-                    var selection = document.getElementById(selectItem.id);
-                    toggleSelection(selection);
-                } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
-                    var selection = document.getElementById(e.target.parentNode.id);
-                    toggleSelection(selection);
-                }
-            
-
-        } else {
-            //other rules
-            var selectedArray = inputArray[1].split(",");
-            for (var i = 0; i < selectedArray.length;i++){
-                var selectItem = document.getElementById("expr_" + selectedArray[i]);
-                if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
-                    selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
-                    var selection = document.getElementById(selectItem.id);
-                    toggleSelection(selection);
-                } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
-                    var selection = document.getElementById(e.target.parentNode.id);
-                    toggleSelection(selection);
-                }
-            }
         }
-        // main_scope.addEventListener("click", function(e)
-
-
-        var result = ruleSelected(rule);
-        
-        if (result == INVALID_SCOPE) {
-            message_box.innerHTML = ERROR_MESSAGE_SCOPE;
-        } else if (result == INVALID_MATCH_QUALITY) {
-            message_box.innerHTML = ERROR_MESSAGE_MATCH_QUALITY;
-        } else if (result == INVALID_MATCH_QUANTITY) {
-            message_box.innerHTML = ERROR_MESSAGE_MATCH_QUANTITY +
-                                    ". Require " + rule.premises.length + " premises";
-        } else if (result) {
-            if (/<VAR>/.test(result[0])) {
-                result[0] = result[0].replace(/<VAR>/g, vIElement2);
-                current_conclusion = beautify(result[0]);
-            }else{
-                current_conclusion = beautify(result[0]);
-            }
-            
-            expression.value = result[1];   //!!!!!!!!!!!!!!!!!!!!!!!!!
-            //message_box.innerHTML = "";
-        }
-
-        //原始的conclude内容
-        var expr = [current_conclusion,expression.value];
-        if (expr[1].search(builtin_rules["=>I"].name) !== -1) {
-            addNewExpression(expr[0], "Discharge", expr[1]);
-        } else {
-            addNewExpression(expr[0], "Rule", expr[1]);
-        }
-       resetSelection();
-       expression.value = "";
-       message_box.innerHTML = "SO FAR, SO GOOD!";
-
     });
     
     
