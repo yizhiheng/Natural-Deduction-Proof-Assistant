@@ -84,7 +84,7 @@
             </div>
             <div class="col-xs-4">
                 <div id="message" class="alert alert-info" role="alert">
-                    Hello, welcome to use! To initiate the program, set some premises
+                    Hello, welcome to use!
                 </div>
                 <h4 class="page-header">Narural Deduction Rules</h4>
                 <button type="button" id="&I" class="btn btn-default btn-block btn-sm">And Intro (&I)</button>
@@ -113,26 +113,27 @@
         <h4 class="page-header">Examples</h4>
         <div class="row">
             <div class="col-xs-4">
-                <img src="img/1.png"></div>
+                <img src="img/2.png">
+            </div>
             <div class="col-xs-4">
                 <ol>
-                    <li>input: (p & ~q) => r ; click premise</li>
-                    <li>input: ~r ; click premise</li>
+                    <li>input: p&(qvr) ; click premise</li>
                     <li>input: p ; click premise</li>
-                    <li>input: ~q ; click assumption</li>
-                    <li>
-                        input: &I 3,4 ; click conclude (There is a blank space between &I and 3,4)
-                    </li>
-                    <li>input: "=>E  4.1,1" ; click conclude</li>
-                    <li>input: &I  4.2,2 ; click conclude</li>
-                    <li>input: =>I  4,4.3 ; click conclude</li>
-                    <li>input: ~I 5 ; click conclude</li>
-                    <li>input: ~~E 6 ; click conclude</li>
+                    <li>input: qvr ; click premise</li>
+                    <li>input: q ; click assumption</li>
+                    <li>input: &I 2,4 ; click conclude</li>
+                    <li>input: vI1 4.1,(p&r) ; click conclude</li>
+                    <li>input: =>I 4,4.2 ; click conclude</li>
+                    <li>input: r ; click assumption</li>
+                    <li>input: &I 2,6 ; click conclude</li>
+                    <li>input: vI2 6.1,(p&q) ; click conclude</li>
+                    <li>input: =>I 6,6.2 ; click conclude</li>
+                    <li>input: vE 3,5,7 ; conclude</li>
                 </ol>
             </div>
             <div class="col-xs-4">
                 <a href="img/1.1.png">
-                    <img src="img/1.1.png">
+                    <img src="img/2.1.png">
                 </a>
             </div>
         </div>
@@ -145,9 +146,7 @@
                     <li>input: ~r ; click premise</li>
                     <li>input: p ; click premise</li>
                     <li>input: ~q ; click assumption</li>
-                    <li>
-                        input: &I 3,4 ; click conclude (There is a blank space between &I and 3,4)
-                    </li>
+                    <li>input: &I 3,4 ; click conclude</li>
                     <li>input: "=>E  4.1,1" ; click conclude</li>
                     <li>input: &I  4.2,2 ; click conclude</li>
                     <li>input: =>I  4,4.3 ; click conclude</li>

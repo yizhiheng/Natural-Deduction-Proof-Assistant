@@ -67,6 +67,7 @@ function addNewExpression(content, type, rule_name) {
     if ((undo_button.disabled)) {
         undo_button.disabled = false;
     }
+    expression.value = "";
 }
 
 //item: DOM li element
@@ -115,7 +116,7 @@ function ruleSelected(rule) {
     var conclusion = matchWithRule(expression_strs, rule);
     if (conclusion) {
         var modifier = rule.name + "  ";
-        return [rule.substitute(conclusion), modifier + dependencies.join(", ")];
+        return [rule.substitute(conclusion), modifier + dependencies.join(",")];
     } else {
         return INVALID_MATCH_QUALITY;
     }
@@ -205,25 +206,49 @@ function setupListeners() {
     //单击了conclude按钮
     conclude_button.addEventListener("click", function() {
 
-        /*if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~~I|~~E)\s(\d+,)*\d+$/.test(expression.value)) {
-            message_box.innerHTML = "Wrong input. The input should match the pattern. ";
+        if (!/^(\&I|\&E1|\&E2|vI1|vI2|vE|=>I|=>E|~I|~~I|~~E)\s(\d+\.*)+,?.*$/.test(expression.value)) {
+            message_box.innerHTML = "Wrong input. The input should match the right pattern. ";
             return;
-        };*/
+        };
         var inputArray = expression.value.split(" ");
         var rule = builtin_rules[inputArray[0]];  //判断运用的是什么规则
+        var vIElement2;
+        
+        if (rule.name == "vI1" || rule.name == "vI2") {   
+            //if rule is vI1 or vI2
+            vIElement2 = inputArray[1].split(",")[1];   //get the second element, like B in vI1 1,b
 
-        var selectedArray = inputArray[1].split(",");
-        for (var i = 0; i < selectedArray.length;i++){
-            var selectItem = document.getElementById("expr_" + selectedArray[i]);
-            if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
-                selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
-                var selection = document.getElementById(selectItem.id);
-                toggleSelection(selection);
-            } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
-                var selection = document.getElementById(e.target.parentNode.id);
-                toggleSelection(selection);
+            var selectedArray = inputArray[1].split(",");
+                var i = 0;  //only get the first element
+                var selectItem = document.getElementById("expr_" + selectedArray[i]);
+                if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
+                    selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
+                    var selection = document.getElementById(selectItem.id);
+                    toggleSelection(selection);
+                } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
+                    var selection = document.getElementById(e.target.parentNode.id);
+                    toggleSelection(selection);
+                }
+            
+
+        } else {
+            //other rules
+            var selectedArray = inputArray[1].split(",");
+            for (var i = 0; i < selectedArray.length;i++){
+                var selectItem = document.getElementById("expr_" + selectedArray[i]);
+                if (selectItem.className == EXPR_ITEM_CLASS_NAME ||
+                    selectItem.className == EXPR_ITEM_SELECTED_CLASS_NAME) {
+                    var selection = document.getElementById(selectItem.id);
+                    toggleSelection(selection);
+                } else if (selectItem.className == EXPR_STRING_CLASS_NAME) {
+                    var selection = document.getElementById(e.target.parentNode.id);
+                    toggleSelection(selection);
+                }
             }
         }
+        // main_scope.addEventListener("click", function(e)
+
+
         var result = ruleSelected(rule);
         
         if (result == INVALID_SCOPE) {
@@ -234,11 +259,14 @@ function setupListeners() {
             message_box.innerHTML = ERROR_MESSAGE_MATCH_QUANTITY +
                                     ". Require " + rule.premises.length + " premises";
         } else if (result) {
-            current_conclusion = beautify(result[0])
+            if (/<VAR>/.test(result[0])) {
+                result[0] = result[0].replace(/<VAR>/g, vIElement2);
+                current_conclusion = beautify(result[0]);
+            }else{
+                current_conclusion = beautify(result[0]);
+            }
+            
             expression.value = result[1];   //!!!!!!!!!!!!!!!!!!!!!!!!!
-            conclude_button.disabled = false;
-            premise_button.disabled = true;
-            assumption_button.disabled = true;
             //message_box.innerHTML = "";
         }
 
@@ -250,6 +278,9 @@ function setupListeners() {
             addNewExpression(expr[0], "Rule", expr[1]);
         }
        resetSelection();
+       expression.value = "";
+       message_box.innerHTML = "SO FAR, SO GOOD!";
+
     });
     
     
