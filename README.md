@@ -1,4 +1,4 @@
-CSI5110_TermProject
+Natural Deduction Proof Assistant
 ===================
 
 A natural deduction tool for CSI5110 term project
